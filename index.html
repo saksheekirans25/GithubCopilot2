@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Italian Restaurant Online Ordering</title>
+    <style>
+        /* CSS styles for your website */
+        /* Add your styles here */
+        body {
+            background: linear-gradient(to bottom, #ffcccc, #ff99cc);
+            font-family: 'Arial', sans-serif;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #ffcccc, #ff99cc);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        #view {
+            flex-basis: 60%;
+        }
+
+        #menu {
+            flex-basis: 30%;
+        }
+
+        #cart {
+            flex-basis: 30%;
+        }
+
+        #checkout {
+            flex-basis: 30%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ristorante Fantastico in Italia</h1>
+        <div>
+          <label for="searchInput">Search</label> 
+            <input type="search" placeholder="Search..." id="searchInput">
+            <button type="submit" onclick="search()">Search</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="menu">
+            <h2>Menu</h2>
+            <ul>
+                <li>Pizza - $12.99 <button onclick="addToCart('Pizza', 12.99)">Add to Cart</button></li>
+                <li>Pasta - $10.99 <button onclick="addToCart('Pasta', 10.99)">Add to Cart</button></li>
+                <li>Lasagna - $14.99 <button onclick="addToCart('Lasagna', 14.99)">Add to Cart</button></li>
+                <li>Spaghetti - $11.99 <button onclick="addToCart('Spaghetti', 11.99)">Add to Cart</button></li>
+                <li>Ravioli - $13.99 <button onclick="addToCart('Ravioli', 13.99)">Add to Cart</button></li>
+                <li>Calzone - $9.99 <button onclick="addToCart('Calzone', 9.99)">Add to Cart</button></li>
+                <!-- Add more menu items here -->
+            </ul>
+        </section>
+
+        <section id="cart">
+            <h2>Cart</h2>
+            <ul id="cartItems">
+                <!-- Cart items will be dynamically added here -->
+            </ul>
+            <p id="totalPrice">Total Price: $0.00</p>
+            <button onclick="checkout()">Checkout</button>
+        </section>
+    </main>
+
+    <script>
+        function addToCart(item, price) {
+            // Get the cart items element
+            var cartItemsElement = document.getElementById("cartItems");
+
+            // Create a new list item element
+            var listItemElement = document.createElement("li");
+            listItemElement.textContent = item + " - $" + price.toFixed(2); // Show individual price
+
+            // Append the list item to the cart items element
+            cartItemsElement.appendChild(listItemElement);
+
+            // Update the total price
+            var totalPriceElement = document.getElementById("totalPrice");
+            var totalPrice = parseFloat(totalPriceElement.textContent.replace("Total Price: $", ""));
+            totalPrice += price;
+            totalPriceElement.textContent = "Total Price: $" + totalPrice.toFixed(2);
+        }
+
+        function checkout() {
+            // Perform checkout logic here
+            var totalPriceElement = document.getElementById("totalPrice");
+            var totalPrice = parseFloat(totalPriceElement.textContent.replace("Total Price: $", ""));
+            alert("Thank you for your order! Your total is $" + totalPrice.toFixed(2));
+        }
+
+        function search() {
+            // Get the search input value
+            var searchInput = document.getElementById("searchInput").value;
+
+            // Perform search logic here
+            var menuItems = document.querySelectorAll("#menu li");
+            for (var i = 0; i < menuItems.length; i++) {
+            var menuItem = menuItems[i];
+            var itemName = menuItem.textContent.split(" - ")[0];
+            if (itemName.toLowerCase().includes(searchInput.toLowerCase())) {
+                menuItem.style.display = "block";
+            } else {
+                menuItem.style.display = "none";
+            }
+            }
+        }
+    </script>
+</body>
+</body>
+</html>
